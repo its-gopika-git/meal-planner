@@ -100,7 +100,9 @@ function Planner() {
               <LocalizationProvider dateAdapter={AdapterDayjs}><DateRangePicker value={selectedRange} onChange={(newValue) => setSelectedRange(newValue)} format="DD MMM YYYY" slotProps={{ textField: { size: 'small', className: 'week-picker' } }} /></LocalizationProvider>
             </Stack>
             <Stack className="week-list">{days.map((day, index) => <Box key={day} className={`week-row ${selectedRecipe ? 'row-ready' : ''}`} onClick={() => selectedRecipe && placeMeal(day, selectedRecipe)} onDragOver={(event) => event.preventDefault()} onDrop={() => placeMeal(day, draggedRecipe || selectedRecipe)}><Box className="day-label"><Typography variant="caption">{day}</Typography><Typography className="date-number">{weekStart.add(index, 'day').format('D')}</Typography></Box><Stack className="day-meals" direction="row" gap={1}>{plan[day].map((id, mealIndex) => <MealCard key={`${id}-${mealIndex}`} recipe={recipeById[id]} onRemove={() => dispatch(removeMeal({ day, index: mealIndex }))} />)}{plan[day].length < 2 && <Box className="drop-zone"><Add fontSize="small" /><Typography variant="caption">{selectedRecipe ? 'Add dish' : 'Drop or select'}</Typography></Box>}</Stack></Box>)}</Stack>
-            <Button variant="contained" className="save-button ingredients-save-button" startIcon={<CheckCircle fontSize="small" />} onClick={saveMenu} disabled={!hasMeals}>Save menu</Button>
+            <Button style={{
+                marginTop: '1.6rem',
+            }} variant="contained" className="save-button ingredients-save-button" startIcon={<CheckCircle fontSize="small" />} onClick={saveMenu} disabled={!hasMeals}>Save menu</Button>
           </Paper>
 
           <Paper className="section-panel dishes-panel" elevation={0}>
